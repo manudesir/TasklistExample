@@ -2,9 +2,12 @@
 import { useState } from "react";
 import { Task } from "./App";
 
+// hook contenant la logique métier pour gérer les tâches
 const useTasks = (initialTasks: Task[]) => {
+  // liste de tâches
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
 
+  // ajouter une tâche
   const addTask = (title: string) => {
     if (title.trim() === "") return;
     const nextId =
@@ -17,6 +20,7 @@ const useTasks = (initialTasks: Task[]) => {
     setTasks([newTask, ...tasks]);
   };
 
+  // marquer une tâche comme complétée ou non
   const toggleTaskCompleted = (id: number) => {
     setTasks(
       tasks.map((task) =>
@@ -25,6 +29,7 @@ const useTasks = (initialTasks: Task[]) => {
     );
   };
 
+  // supprimer une tâche
   const deleteTask = (id: number) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };

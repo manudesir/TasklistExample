@@ -7,13 +7,13 @@ export type Task = {
   completed: boolean;
 };
 const App: React.FC = () => {
-  // On initialise le hook avec un tableau de départ
+  // les tâches peuvent être dans un state, sur un serveur, dans un localStorage, ça ne change rien au fonctionnement du composant
   const { tasks, addTask, toggleTaskCompleted, deleteTask } = useTasks([
     { id: 1, title: "Apprendre les bases de React", completed: true },
-    { id: 2, title: "Limiter le nombre de ligne par composants", completed: false },
-    { id: 3, title: "Découper en compsants simples", completed: false },
-    { id: 4, title: "Sortir la logique métier de la définition du composant", completed: false },
-    { id: 4, title: "Eviter le props drilling", completed: false },
+    { id: 2, title: "Limiter le nombre de ligne par composants", completed: true },
+    { id: 3, title: "Découper en compsants simples", completed: true },
+    { id: 4, title: "Sortir la logique métier de la définition du composant", completed: true },
+    { id: 5, title: "Eviter le props drilling", completed: false },
   ]);
 
   return (
@@ -43,14 +43,11 @@ const App: React.FC = () => {
           boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
         }}
       >
-        <h3 style={{ marginTop: 0, marginBottom: 12 }}>Découpage en sous composants</h3>
-        <ul>
-          <li>TaskInput : pour saisir une nouvelle tâche</li>
-          <li>TaskList : pour afficher la liste des tâches</li>
-          <li>TaskItem : pour chaque élément de la liste</li>
-        </ul>
-        <h3 style={{ marginTop: 0, marginBottom: 12 }}>Next step:</h3>
-        <p>Sortir la logique métier du composant App</p>
+        <h3 style={{ marginTop: 0, marginBottom: 12 }}>Sortir la logique métier</h3>
+        <p>et la mettre dans un hook</p>
+        <h3 style={{ marginTop: 0, marginBottom: 12 }}>Problème:</h3>
+        <p>on passe les fonctions <b>toggleTaskCompleted</b> et <b>deleteTask</b> de <pre>App → TaskList → TaskItem</pre> C'est du <b>props drilling</b> (le composant intermédiaire fait passe plat).</p>
+        <p><i>Ce n'est pas un gros problème en soit et il existe des manières élégantes de le faire, mais ça met en avant une amélioration du code possible</i></p>
       </div>
     </div>
   );
