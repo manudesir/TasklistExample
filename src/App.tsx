@@ -1,12 +1,12 @@
 import { useState } from "react";
-
-type Task = {
+import TaskInput from "./TaskInput";
+import TaskList from "./Tasklist";
+export type Task = {
   id: number;
   title: string;
   completed: boolean;
 };
-
-const TaskList: React.FC = () => {
+const App: React.FC = () => {
   // État pour la liste des tâches
   const [tasks, setTasks] = useState<Task[]>([
     { id: 1, title: "Apprendre les bases de React", completed: true },
@@ -16,11 +16,8 @@ const TaskList: React.FC = () => {
     { id: 4, title: "Eviter le props drilling", completed: false },
   ]);
 
-  // État pour le champ de saisie de nouvelle tâche
-  const [newTaskTitle, setNewTaskTitle] = useState<string>("");
-
   // Fonction pour ajouter une nouvelle tâche
-  const addTask = () => {
+  const addTask = (newTaskTitle: string) => {
     if (newTaskTitle.trim() === "") return;
     const nextId =
       tasks.length > 0 ? Math.max(...tasks.map((t) => t.id)) + 1 : 1;
@@ -30,7 +27,6 @@ const TaskList: React.FC = () => {
       completed: false,
     };
     setTasks([newTask, ...tasks]);
-    setNewTaskTitle("");
   };
 
   // Fonction pour basculer l'état "completed" d'une tâche
@@ -47,11 +43,6 @@ const TaskList: React.FC = () => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  // Fonction de gestion de la saisie dans l’input
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewTaskTitle(e.target.value);
-  };
-
   return (
     <div
       style={{
@@ -61,75 +52,12 @@ const TaskList: React.FC = () => {
       }}
     >
       <h2>Ma liste de tâches</h2>
-
-      <div style={{ marginBottom: 16 }}>
-        <input
-          type="text"
-          placeholder="Nouvelle tâche..."
-          value={newTaskTitle}
-          onChange={handleInputChange}
-          style={{ width: "70%", padding: 8, fontSize: 14 }}
-        />
-        <button
-          onClick={addTask}
-          style={{
-            marginLeft: 8,
-            padding: "8px 12px",
-            fontSize: 14,
-            cursor: "pointer",
-          }}
-        >
-          Ajouter
-        </button>
-      </div>
-
-      {tasks.length === 0 ? (
-        <p>Aucune tâche pour le moment.</p>
-      ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {tasks.map((task) => (
-            <li
-              key={task.id}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: 8,
-                background: "#f9f9f9",
-                padding: 8,
-                borderRadius: 4,
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => toggleTaskCompleted(task.id)}
-                style={{ marginRight: 8 }}
-              />
-              <span
-                style={{
-                  flexGrow: 1,
-                  textDecoration: task.completed ? "line-through" : "none",
-                }}
-              >
-                {task.title}
-              </span>
-              <button
-                onClick={() => deleteTask(task.id)}
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  color: "#c00",
-                  cursor: "pointer",
-                  fontSize: 16,
-                }}
-                aria-label={`Supprimer ${task.title}`}
-              >
-                ✕
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+      <TaskInput onSubmit={addTask} />
+      <TaskList
+        tasks={tasks}
+        onCheck={toggleTaskCompleted}
+        onDelete={deleteTask}
+      />
 
       {/* présentation : slide-style card */}
       <div
@@ -142,14 +70,16 @@ const TaskList: React.FC = () => {
           boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
         }}
       >
-        <h3 style={{ marginTop: 0, marginBottom: 12 }}>Do: Keep it simple</h3>
-        <p>Gardez vos composants courts et ciblés (un composant = une seule responsabilité)</p>
-        <p>Ce projet React, vous allez le maintenir et le faire évoluer : le code que vous écrivez aujourd’hui sera peut-être encore là dans six mois ou un an.<br /> Si vous démarrez avec un composant monolithique, vous allez vous traîner votre code de débutant longtemps.</p>
-        <h3 style={{ marginTop: 12, marginBottom: 12 }}>Don't: make big components</h3>
-        <p>Ne surchargez pas un composant, n’écrivez pas toutes vos fonctions à l’intérieur du corps d’un même composant.</p>
+        <h3 style={{ marginTop: 0, marginBottom: 12 }}>Découpage en sous composants</h3>
+        <ul>
+          <li>TaskInput : pour saisir une nouvelle tâche</li>
+          <li>TaskList : pour afficher la liste des tâches</li>
+          <li>TaskItem : pour chaque élément de la liste</li>
+        </ul>
       </div>
+      
     </div>
   );
 };
 
-export default TaskList;
+export default App;
