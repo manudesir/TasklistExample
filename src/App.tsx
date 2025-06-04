@@ -1,47 +1,20 @@
-import { useState } from "react";
 import TaskInput from "./TaskInput";
 import TaskList from "./Tasklist";
+import useTasks from "./useTasks";
 export type Task = {
   id: number;
   title: string;
   completed: boolean;
 };
 const App: React.FC = () => {
-  // État pour la liste des tâches
-  const [tasks, setTasks] = useState<Task[]>([
+  // On initialise le hook avec un tableau de départ
+  const { tasks, addTask, toggleTaskCompleted, deleteTask } = useTasks([
     { id: 1, title: "Apprendre les bases de React", completed: true },
     { id: 2, title: "Limiter le nombre de ligne par composants", completed: false },
     { id: 3, title: "Découper en compsants simples", completed: false },
     { id: 4, title: "Sortir la logique métier de la définition du composant", completed: false },
     { id: 4, title: "Eviter le props drilling", completed: false },
   ]);
-
-  // Fonction pour ajouter une nouvelle tâche
-  const addTask = (newTaskTitle: string) => {
-    if (newTaskTitle.trim() === "") return;
-    const nextId =
-      tasks.length > 0 ? Math.max(...tasks.map((t) => t.id)) + 1 : 1;
-    const newTask: Task = {
-      id: nextId,
-      title: newTaskTitle.trim(),
-      completed: false,
-    };
-    setTasks([newTask, ...tasks]);
-  };
-
-  // Fonction pour basculer l'état "completed" d'une tâche
-  const toggleTaskCompleted = (id: number) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
-  };
-
-  // Fonction pour supprimer une tâche
-  const deleteTask = (id: number) => {
-    setTasks(tasks.filter((task) => task.id !== id));
-  };
 
   return (
     <div
