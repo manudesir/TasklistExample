@@ -13,7 +13,7 @@ const App: React.FC = () => {
     { id: 2, title: "Limiter le nombre de ligne par composants", completed: false },
     { id: 3, title: "Découper en compsants simples", completed: false },
     { id: 4, title: "Sortir la logique métier de la définition du composant", completed: false },
-    { id: 4, title: "Eviter le props drilling", completed: false },
+    { id: 5, title: "Eviter le props drilling", completed: false },
   ]);
 
   // Fonction pour ajouter une nouvelle tâche
@@ -76,6 +76,8 @@ const App: React.FC = () => {
           <li>TaskList : pour afficher la liste des tâches</li>
           <li>TaskItem : pour chaque élément de la liste</li>
         </ul>
+        <h3 style={{ marginTop: 0, marginBottom: 12 }}>Next step:</h3>
+        <p>Sortir la logique métier du composant App</p>
       </div>
       
     </div>
