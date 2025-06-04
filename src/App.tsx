@@ -79,7 +79,6 @@ const App: React.FC = () => {
         <h3 style={{ marginTop: 0, marginBottom: 12 }}>Next step:</h3>
         <p>Sortir la logique métier du composant App</p>
       </div>
-      
     </div>
   );
 };
