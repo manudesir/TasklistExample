@@ -76,6 +76,8 @@ const App: React.FC = () => {
           <li>TaskList : pour afficher la liste des tâches</li>
           <li>TaskItem : pour chaque élément de la liste</li>
         </ul>
+        <h3 style={{ marginTop: 0, marginBottom: 12 }}>Next step:</h3>
+        <p>Sortir la logique métier du composant App</p>
       </div>
       
     </div>
