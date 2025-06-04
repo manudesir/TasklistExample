@@ -1,5 +1,6 @@
+import List from "./List";
 import TaskInput from "./TaskInput";
-import TaskList from "./Tasklist";
+import TaskItem from "./TaskItem";
 import useTasks from "./useTasks";
 export type Task = {
   id: number;
@@ -26,10 +27,17 @@ const App: React.FC = () => {
       <h2>Ma liste de tâches</h2>
       <TaskInput onSubmit={addTask} />
 
-      <TaskList
-        tasks={tasks}
-        onCheck={toggleTaskCompleted}
-        onDelete={deleteTask}
+      <List
+        items={tasks}
+        renderItem={(task) => (
+          <TaskItem
+            id={task.id}
+            title={task.title}
+            completed={task.completed}
+            onCheck={toggleTaskCompleted}
+            onDelete={deleteTask}
+          />
+        )}
       />
     </div>
   );
