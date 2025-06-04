@@ -10,9 +10,10 @@ const TaskList: React.FC = () => {
   // État pour la liste des tâches
   const [tasks, setTasks] = useState<Task[]>([
     { id: 1, title: "Apprendre les bases de React", completed: true },
-    { id: 2, title: "Configurer TypeScript dans le projet", completed: false },
-    { id: 3, title: "Créer un composant de liste", completed: false },
-    { id: 4, title: "Refactorer le composant", completed: false },
+    { id: 2, title: "Limiter le nombre de ligne par composants", completed: false },
+    { id: 3, title: "Découper en compsants simples", completed: false },
+    { id: 4, title: "Sortir la logique métier de la définition du composant", completed: false },
+    { id: 5, title: "Eviter le props drilling", completed: false },
   ]);
 
   // État pour le champ de saisie de nouvelle tâche
@@ -129,6 +130,24 @@ const TaskList: React.FC = () => {
           ))}
         </ul>
       )}
+
+      {/* présentation : slide-style card */}
+      <div
+        style={{
+          border: "1px solid #ccc",
+          borderRadius: 8,
+          padding: 16,
+          marginTop: 32,
+          background: "#fff",
+          boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+        }}
+      >
+        <h3 style={{ marginTop: 0, marginBottom: 12 }}>Do: Keep it simple</h3>
+        <p>Gardez vos composants courts et ciblés (un composant = une seule responsabilité)</p>
+        <p>Ce projet React, vous allez le maintenir et le faire évoluer : le code que vous écrivez aujourd’hui sera peut-être encore là dans six mois ou un an.<br /> Si vous démarrez avec un composant monolithique, vous allez vous traîner votre code de débutant longtemps.</p>
+        <h3 style={{ marginTop: 12, marginBottom: 12 }}>Don't: make big components</h3>
+        <p>Ne surchargez pas un composant, n’écrivez pas toutes vos fonctions à l’intérieur du corps d’un même composant.</p>
+      </div>
     </div>
   );
 };
