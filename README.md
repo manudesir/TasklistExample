@@ -1,2 +1,6 @@
-# TasklistExample
-Created with CodeSandbox
+- `npm install`
+- `npm run start`
+- `git checkout step1`
+- `git checkout step2`
+- `git checkout step3`
+- `git checkout step4`
